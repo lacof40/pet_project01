@@ -1,7 +1,7 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 
 
 class TestElement:
@@ -66,7 +66,6 @@ class TestElement:
             # print(table_result)
             assert key_word in table_result, "person wasn't found in the table"
 
-
         def test_web_table_update_person_info(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -95,3 +94,14 @@ class TestElement:
             assert count == [5, 10, 20, 25, 50,
                              100], 'The number of rows in table has not been changed or has changed incorrectly'
 
+    class TestButtonsPage:
+
+        def test_different_click_on_the_button(self, browser):
+            button_page = ButtonsPage(browser, "https://demoqa.com/buttons")
+            button_page.open()
+            double = button_page.click_on_different_button("double")
+            right = button_page.click_on_different_button("right")
+            click = button_page.click_on_different_button("click")
+            assert double == "You have done a double click", "The double click button wasn't pressed"
+            assert right == "You have done a right click", "The right click button wasn't pressed"
+            assert click == "You have done a dynamic click", "The dynamic click button wasn't press"
