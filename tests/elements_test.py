@@ -2,7 +2,7 @@ import random
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    TestUploadAndDownloadPage
+    TestUploadAndDownloadPage, DynamicPropertiesPage
 
 
 class TestElement:
@@ -119,7 +119,7 @@ class TestElement:
             links_page = LinksPage(browser, "https://demoqa.com/links")
             links_page.open()
             response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
-            assert response_code == 400, "the link works or the status code in son 400"
+            assert response_code == 400, "the link works or the status code 400"
 
     class TestUploadAndDownload:
 
@@ -135,3 +135,24 @@ class TestElement:
             upload_download_page.open()
             check = upload_download_page.download_file()
             assert check is True, "the file has not been downloaded"
+
+    class TestDynamicPropertiesPage:
+
+        # to do doesn't work, because selenium loaded browser too long
+        def test_dynamic_properties(self, browser):
+            dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            color_before, color_after = dynamic_properties_page.check_changed_of_color()
+            assert color_after != color_before, 'colors have not been changed'
+
+        def test_appear_button(self, browser):
+            dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            appear = dynamic_properties_page.check_appear_of_button()
+            assert appear is True, 'button did not appear after 5 second'
+
+        def test_enable_button(self, browser):
+            dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            enable = dynamic_properties_page.check_enable_button()
+            assert enable is True, 'button did not enable after 5 second'
