@@ -39,7 +39,6 @@ class WebTablePageLocators:
     DEPARTMENT_INPUT = (By.CSS_SELECTOR, 'input[id="department"]')
     SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
 
-
     # table
     FULL_PEOPLE_LIST = (By.CSS_SELECTOR, "div[class='rt-tr-group']")
     SEARCH_INPUT = (By.CSS_SELECTOR, 'input[id="searchBox"]')
@@ -51,8 +50,8 @@ class WebTablePageLocators:
     # update
     UPDATE_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')
 
-class ButtonsPageLocators:
 
+class ButtonsPageLocators:
     DOUBLE_BUTTON = (By.CSS_SELECTOR, "button[id='doubleClickBtn']")
     RIGHT_CLICK_BUTTON = (By.CSS_SELECTOR, "button[id='rightClickBtn']")
     CLICK_ME_BUTTON = (By.XPATH, "//div[3]/button")
@@ -79,11 +78,3 @@ class DynamicPropertiesPageLocators:
     COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, 'button[id="colorChange"]')
     VISIBLE_AFTER_FIVE_SEC_BUTTON = (By.CSS_SELECTOR, 'button[id="visibleAfter"]')
     ENABLE_BUTTON = (By.CSS_SELECTOR, 'button[id="enableAfter"]')
-
-
-
-
-
-
-
-
