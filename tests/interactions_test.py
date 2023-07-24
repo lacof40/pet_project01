@@ -1,5 +1,5 @@
 from locators.interactions_page_locators import ResizablePageLocators
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
 class TestInteractions:
@@ -67,3 +67,20 @@ class TestDroppablePage:
         not_will_after_move, not_will_after_revert = droppable_page.drop_revert_graggable('not_will')
         assert will_after_move != will_after_revert, "the element has not reverted"
         assert not_will_after_move == not_will_after_revert, "the elements has reverted"
+
+
+# to do
+class TestDraggablePage:
+
+    def test_simple_draggable(self, browser):
+        draggable_page = DraggablePage(browser, 'https://demoqa.com/dragabble')
+        draggable_page.open()
+        before, after = draggable_page.simple_drag_box()
+        assert before != after, "the position of the box has not been changed"
+
+    def test_axis_restricted_draggable(self, browser):
+        draggable_page = DraggablePage(browser, 'https://demoqa.com/dragabble')
+        draggable_page.open()
+        draggable_page.axis_restricted_x()
+        top_x, left_x = draggable_page.axis_restricted_x()
+        top_y, left_y = draggable_page.axis_restricted_y()
