@@ -136,6 +136,7 @@ class DroppablePage(BasePage):
         position_after_revert = revert.get_attribute('style')
         return position_after_move, position_after_revert
 
+
 # to do
 class DraggablePage(BasePage):
     locators = DraggablePageLocators()
