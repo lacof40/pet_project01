@@ -1,13 +1,18 @@
 import random
 import time
 
+import allure
+
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
     TestUploadAndDownloadPage, DynamicPropertiesPage
 
 
+@allure.suite("Elements")
 class TestElement:
+    @allure.feature('TextBox')
     class TestTextBox:
 
+        @allure.title('Check TextBox')
         def test_text_box(self, browser):
             text_box_page = TextBoxPage(browser, "https://demoqa.com/text-box")
             text_box_page.open()
@@ -19,7 +24,9 @@ class TestElement:
             assert current_address == output_cur_address, "the current address doesn't match"
             assert permanent_address == output_perm_address, "the permanent address doesn't match"
 
+    @allure.feature('CheckBox')
     class TestCheckBox:
+        @allure.title('Check CheckBox')
         def test_check_box(self, browser):
             check_box_page = CheckBoxPage(browser, "https://demoqa.com/checkbox")
             check_box_page.open()
@@ -31,8 +38,9 @@ class TestElement:
             print(input_checkbox)
             assert input_checkbox == output_result, "checkboxes haven't been selected"
 
+    @allure.feature('RadioButton')
     class TestRadioButton:
-
+        @allure.title('Check RadioButton')
         def test_radio_button(self, browser):
             radio_button_page = RadioButtonPage(browser, "https://demoqa.com/radio-button")
             radio_button_page.open()
@@ -46,8 +54,9 @@ class TestElement:
             assert output_impressive == 'Impressive', "'Impressive' have not been selected"
             assert output_no == 'No', "'No' have not been selected"
 
+    @allure.feature('WebTable')
     class TestWebTable:
-
+        @allure.title('Check to add a person to the table')
         def test_web_table_add_person(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -57,6 +66,7 @@ class TestElement:
             print(table_result)
             assert new_person in table_result
 
+        @allure.title('Check human search in table')
         def test_web_table_search_person(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -67,6 +77,7 @@ class TestElement:
             # print(table_result)
             assert key_word in table_result, "person wasn't found in the table"
 
+        @allure.title('Checking to update the persons info in the table')
         def test_web_table_update_person_info(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -78,6 +89,7 @@ class TestElement:
             print(row)
             assert age in row, "the person card hasn't been changed"
 
+        @allure.title('Checking to remove a person from the table')
         def test_web_table_delete_person(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -87,6 +99,7 @@ class TestElement:
             text = web_table_page.check_deleted()
             assert text == 'No rows found'
 
+        @allure.title('Checking the change in the number of rows in the table')
         # to do: doesn't work, need to delete footer
         def test_web_table_change_count_row(self, browser):
             web_table_page = WebTablePage(browser, "https://demoqa.com/webtables")
@@ -95,8 +108,10 @@ class TestElement:
             assert count == [5, 10, 20, 25, 50,
                              100], 'The number of rows in table has not been changed or has changed incorrectly'
 
+    @allure.feature('Buttons page')
     class TestButtonsPage:
 
+        @allure.title('Checking clicks of different types')
         def test_different_click_on_the_button(self, browser):
             button_page = ButtonsPage(browser, "https://demoqa.com/buttons")
             button_page.open()
@@ -107,22 +122,27 @@ class TestElement:
             assert right == "You have done a right click", "The right click button wasn't pressed"
             assert click == "You have done a dynamic click", "The dynamic click button wasn't press"
 
+    @allure.feature('Links page')
     class TestLinksPage:
 
+        @allure.title('Checking the link')
         def test_check_link(self, browser):
             links_page = LinksPage(browser, "https://demoqa.com/links")
             links_page.open()
             href_link, current_url = links_page.check_new_tab_simple_link()
             assert href_link == current_url, "the link is broken or url is incorrect"
 
+        @allure.title('Checking the broken link')
         def test_broken_link(self, browser):
             links_page = LinksPage(browser, "https://demoqa.com/links")
             links_page.open()
             response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
             assert response_code == 400, "the link works or the status code 400"
 
+    @allure.feature('Upload and Download page')
     class TestUploadAndDownload:
 
+        @allure.title('Check upload file')
         # to do change path name for correct work
         def test_upload_file(self, browser):
             upload_download_page = TestUploadAndDownloadPage(browser, "https://demoqa.com/upload-download")
@@ -130,14 +150,17 @@ class TestElement:
             file_name, result = upload_download_page.upload_file()
             assert file_name == result, "the file has not been uploaded"
 
+        @allure.title('Check download file')
         def test_download_file(self, browser):
             upload_download_page = TestUploadAndDownloadPage(browser, "https://demoqa.com/upload-download")
             upload_download_page.open()
             check = upload_download_page.download_file()
             assert check is True, "the file has not been downloaded"
 
+    @allure.feature('Dynamic properties page')
     class TestDynamicPropertiesPage:
 
+        @allure.title('Check dynamic properties')
         # to do doesn't work, because selenium loaded browser too long
         def test_dynamic_properties(self, browser):
             dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
@@ -145,12 +168,14 @@ class TestElement:
             color_before, color_after = dynamic_properties_page.check_changed_of_color()
             assert color_after != color_before, 'colors have not been changed'
 
+        @allure.title('Check appear button')
         def test_appear_button(self, browser):
             dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
             dynamic_properties_page.open()
             appear = dynamic_properties_page.check_appear_of_button()
             assert appear is True, 'button did not appear after 5 second'
 
+        @allure.title('Check enable button')
         def test_enable_button(self, browser):
             dynamic_properties_page = DynamicPropertiesPage(browser, "https://demoqa.com/dynamic-properties")
             dynamic_properties_page.open()
